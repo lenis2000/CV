@@ -24,3 +24,7 @@
 *.out
 *.synctex.gz
 .DS_Store
+TEX_CV_publist.tex
+TEX_CV_publist_short.tex
+TEX_CV_publist.tex
+TEX_publist.tex
