@@ -95,6 +95,15 @@ build-and-commit: clean all
 	git add $(PDF_FULL) $(PDF_SHORT) $(PDF_BRIEF) $(PDF_BRIEF_ONE_MORE) $(PDF_PUBL)
 	@echo "PDFs built and staged for commit"
 
+# Deploy: stage all changes, commit with git's built-in context, and push
+deploy: clean all
+	@echo "Staging all changes..."
+	git add .
+	@echo "Opening git commit dialog..."
+	git commit -v
+	@echo "Pushing to remote..."
+	git push
+
 # Individual targets
 cv-full: $(PDF_FULL)
 cv-short: $(PDF_SHORT)
@@ -119,7 +128,8 @@ help:
 	@echo "  clean-all        - Clean all files including PDFs"
 	@echo "  rebuild          - Clean and rebuild all"
 	@echo "  build-and-commit - Build and stage PDFs for git commit"
+	@echo "  deploy           - Build, stage all changes, commit with git dialog, and push"
 	@echo "  help             - Show this help message"
 
 # Declare phony targets
-.PHONY: all clean clean-all download-publists build-and-commit rebuild help cv-full cv-short cv-brief cv-brief-one-more publications
+.PHONY: all clean clean-all download-publists build-and-commit deploy rebuild help cv-full cv-short cv-brief cv-brief-one-more publications
