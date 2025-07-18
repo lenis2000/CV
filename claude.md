@@ -93,6 +93,41 @@ Recent examples from the CVs:
 - URLs when available
 - Special notes (postponed, canceled, virtual)
 
+## Build System (Makefile)
+
+### Main Build Commands
+- **`make`** or **`make all`**: Downloads latest publication lists → builds all PDFs → cleans up intermediate files
+- **`make clean`**: Removes intermediate files and downloaded publication lists
+- **`make clean-all`**: Removes all files including PDFs
+- **`make build-and-commit`**: Full build with cleanup → stages PDFs for git commit
+- **`make help`**: Shows all available targets
+
+### Individual Build Targets
+- **`make cv-full`**: Build full CV only
+- **`make cv-short`**: Build short CV only  
+- **`make cv-brief`**: Build brief CV (2 page) only
+- **`make cv-brief-one-more`**: Build brief CV (2 page one more) only
+- **`make publications`**: Build publication list only
+- **`make download-publists`**: Download publication lists from web
+
+### Build Process
+1. **Always downloads latest publication lists** from web before building
+2. **Overwrites existing** publication list files with `--no-clobber=off`
+3. **Automatic cleanup** of intermediate files (.aux, .log, .gz, etc.)
+4. **Dependencies**: Every build target depends on downloading publication lists first
+
+### Files Built
+- `__petrovCV__.pdf` - Full comprehensive CV
+- `__petrovCV__short.pdf` - Short/brief CV  
+- `__petrovCV__brief_2page.pdf` - Brief 2-page CV
+- `__petrovCV__brief_2page_one_more.pdf` - Brief 2-page CV (variant)
+- `__petrov__publ.pdf` - Publication list
+
+### Git Integration
+- **Git hooks disabled** (renamed to `.git/hooks/pre-commit.disabled`)
+- Use `make build-and-commit` to build and stage PDFs for commit
+- All PDFs are tracked in git and updated automatically
+
 ## Guidelines for CV Maintenance
 
 ### Adding New Events
@@ -117,8 +152,10 @@ DATES, LOCATION.
 ```
 
 ### Adding Publications
-- **Long CV**: Add to `TEX_CV_publist.tex`
-- **Short CV**: Add to `TEX_CV_publist_short.tex` (selected publications only)
+- **Long CV**: Publications automatically pulled from `TEX_CV_publist.tex` (downloaded from web)
+- **Short CV**: Publications automatically pulled from `TEX_CV_publist_short.tex` (downloaded from web)
+- **Publication list**: Uses `TEX_publist.tex` (downloaded from web)
+- **Note**: Publication lists are downloaded fresh on every build
 
 ### Adding Talks
 - **Seminar talks**: Add to the longtable in chronological order
@@ -138,3 +175,9 @@ DATES, LOCATION.
 - Keep consistent punctuation (periods at end of entries)
 - Use \\ for line breaks within entries
 - Maintain alphabetical/chronological order as established
+
+### Workflow
+1. **Edit source files** (`.tex` files) for content changes
+2. **Run `make`** to build all PDFs with latest publication data
+3. **Run `make build-and-commit`** to stage PDFs for git commit
+4. **Commit changes** with `git commit`
