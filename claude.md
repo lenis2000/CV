@@ -1,5 +1,8 @@
 # CV Comparison: __petrovCV__short.tex vs __petrovCV__.tex
 
+## IMPORTANT: Build Policy
+**NEVER build PDFs in Claude.** User will handle all building manually using `make` commands.
+
 ## Overview
 - **Short CV**: 366 lines, Brief version
 - **Long CV**: 1332 lines, Full comprehensive version
