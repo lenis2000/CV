@@ -107,6 +107,14 @@ deploy: clean all
 	@echo "Pushing to remote..."
 	git push
 
+# Autodeploy: build, stage, commit, push in one shot
+autodeploy: clean all
+	@echo "Staging all changes..."
+	git add .
+	git commit -m "autodeploy"
+	@echo "Pushing to remote..."
+	git push
+
 # Individual targets
 cv-full: $(PDF_FULL)
 cv-short: $(PDF_SHORT)
@@ -132,7 +140,8 @@ help:
 	@echo "  rebuild          - Clean and rebuild all"
 	@echo "  build-and-commit - Build and stage PDFs for git commit"
 	@echo "  deploy           - Build, stage all changes, commit with git dialog, and push"
+	@echo "  autodeploy       - Build, stage, commit 'autodeploy', and push"
 	@echo "  help             - Show this help message"
 
 # Declare phony targets
-.PHONY: all clean clean-all download-publists build-and-commit deploy rebuild help cv-full cv-short cv-brief cv-brief-one-more publications
+.PHONY: all clean clean-all download-publists build-and-commit deploy autodeploy rebuild help cv-full cv-short cv-brief cv-brief-one-more publications
