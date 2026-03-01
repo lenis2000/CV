@@ -24,11 +24,13 @@ PDF_PUBL = __petrov__publ.pdf
 PUBLIST_URL = https://lpetrov.cc/research/TEX_publist.tex
 CV_PUBLIST_URL = https://lpetrov.cc/research/TEX_CV_publist.tex
 CV_PUBLIST_SHORT_URL = https://lpetrov.cc/research/TEX_CV_publist_short.tex
+CV_PUBLIST_SELECTED_URL = https://lpetrov.cc/research/TEX_CV_publist_selected.tex
 
 # Local publication list files
 PUBLIST_TEX = TEX_publist.tex
 CV_PUBLIST_TEX = TEX_CV_publist.tex
 CV_PUBLIST_SHORT_TEX = TEX_CV_publist_short.tex
+CV_PUBLIST_SELECTED_TEX = TEX_CV_publist_selected.tex
 
 # Default target
 all: $(PDF_FULL) $(PDF_SHORT) $(PDF_BRIEF) $(PDF_BRIEF_ONE_MORE) $(PDF_PUBL)
@@ -38,7 +40,7 @@ all: $(PDF_FULL) $(PDF_SHORT) $(PDF_BRIEF) $(PDF_BRIEF_ONE_MORE) $(PDF_PUBL)
 	$(LATEX) $(CLEAN_FLAGS) $(CV_BRIEF)
 	$(LATEX) $(CLEAN_FLAGS) $(CV_BRIEF_ONE_MORE)
 	$(LATEX) $(CLEAN_FLAGS) $(PUBL)
-	rm -f $(PUBLIST_TEX) $(CV_PUBLIST_TEX) $(CV_PUBLIST_SHORT_TEX)
+	rm -f $(PUBLIST_TEX) $(CV_PUBLIST_TEX) $(CV_PUBLIST_SHORT_TEX) $(CV_PUBLIST_SELECTED_TEX)
 	rm -f *.gz
 
 # Download publication lists
@@ -47,6 +49,7 @@ download-publists:
 	wget -q --no-clobber=off $(PUBLIST_URL) -O $(PUBLIST_TEX)
 	wget -q --no-clobber=off $(CV_PUBLIST_URL) -O $(CV_PUBLIST_TEX)
 	wget -q --no-clobber=off $(CV_PUBLIST_SHORT_URL) -O $(CV_PUBLIST_SHORT_TEX)
+	wget -q --no-clobber=off $(CV_PUBLIST_SELECTED_URL) -O $(CV_PUBLIST_SELECTED_TEX)
 
 # Build full CV
 $(PDF_FULL): $(CV_FULL) download-publists
@@ -81,7 +84,7 @@ clean:
 	$(LATEX) $(CLEAN_FLAGS) $(CV_BRIEF)
 	$(LATEX) $(CLEAN_FLAGS) $(CV_BRIEF_ONE_MORE)
 	$(LATEX) $(CLEAN_FLAGS) $(PUBL)
-	rm -f $(PUBLIST_TEX) $(CV_PUBLIST_TEX) $(CV_PUBLIST_SHORT_TEX)
+	rm -f $(PUBLIST_TEX) $(CV_PUBLIST_TEX) $(CV_PUBLIST_SHORT_TEX) $(CV_PUBLIST_SELECTED_TEX)
 	rm -f *.gz
 
 # Clean everything including PDFs
